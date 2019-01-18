@@ -1,0 +1,21 @@
+{
+  "name": "node-qps",
+  "version": "1.0.0",
+  "description": "Test Node Application QPS",
+  "main": "./dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "qps"
+  ],
+  "author": "LiuWeiMr",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "gulp": "^4.0.0",
+    "gulp-typescript": "^5.0.0",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {}
+}
