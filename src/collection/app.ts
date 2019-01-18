@@ -21,24 +21,15 @@ interface reportQPS {
 let reportQPS: reportQPS;
 
 reportQPS = function (counter, res) {
-    res.writeHead(200,{'Content-Type':'text/html'})
-    res.write(`<!DOCTYPE HTML>
-    <html>
-    <head>
-    </head>
-    <body>
-     
-    <div style="vertical-align: middle;display: table-cell;">
-        <p>requestCount（接收到请求数）: ${counter.requestCount}</p>
-        <p>responseCount（响应请求数）: ${counter.responseCount}</p>
-        <p>requsetCountInLastTime（${counter.collectTime/1000}秒内接收到请求数）: ${counter.requsetCountInLastTime}</p>
-        <p>responseCountInLastTime（${counter.collectTime/1000}响应请求数）: ${counter.responseCountInLastTime}</p>
-        <p>noRespsnseCount（待响应请求数）: ${counter.noResponseCount}</p>
-        <p>QPS（每秒处理请求数）: ${counter.noResponseCount}</p>
-        <p>collectTime（收集间隔，单位：秒）: ${counter.noResponseCount/1000}</p>
-    </div>
-    </body>
-    </html>
+    res.write(`
+        requestCount: ${counter.requestCount}
+        responseCount: ${counter.responseCount}
+        requsetCountInLastTime: ${counter.requsetCountInLastTime}
+        responseCountInLastTime: ${counter.responseCountInLastTime}
+        noRespsnseCount: ${counter.noResponseCount}
+        QPS: ${counter.noResponseCount}
+        collectTime: ${counter.noResponseCount/1000}
+
     `);
     res.end();
 }
