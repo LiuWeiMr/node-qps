@@ -29,7 +29,7 @@ exports.wrapModuleLoad = wrapModuleLoad = function (counter) {
                 return wrapHttp(counter, orginal.call(this, file));
             }
             else {
-                return orginal.call(this, file);
+                return orginal.apply(this, arguments);
             }
         };
     });
@@ -62,16 +62,13 @@ var warpListener;
 warpListener = function (counter, listener) {
     var newListener;
     newListener = function (request, response) {
-        console.log(":::::start");
         counter.addRequestCount(1);
         response.once('finish', function onResponseFinish() {
-            console.log(":::::end");
             counter.addResponseCount(1);
         });
         var url = request.originalUrl || request.url;
         var method = request.method;
-        console.log(":::::url && method", url, method);
-        if (url === "/QPS" && method === "get") {
+        if (url === "/QPS" && method === "GET") {
             app_1.reportQPS(counter, response);
         }
         return listener.apply(this, arguments);

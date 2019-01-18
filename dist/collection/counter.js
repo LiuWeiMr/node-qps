@@ -76,10 +76,23 @@ var Counter = /** @class */ (function () {
         clearInterval(this._collectTimer);
     };
     Counter.prototype.collect = function () {
-        this._QPS = (this._responseCount - this._responseCountInLastTime) / (this._collectTime / 1000);
+        var QPS = (this._responseCount - this._responseCountInLastTime) / (this._collectTime / 1000);
+        this._QPS = Math.floor(QPS) / 100;
         this._responseCountInLastTime = this._responseCount;
         this._requsetCountInLastTime = this._requestCount;
         this._noResponseCount = this._requestCount - this._responseCount;
+    };
+    Counter.prototype.clearMetric = function () {
+        this._requestCount = 0;
+        this._responseCount = 0;
+        this._requsetCountInLastTime = 0;
+        this._responseCountInLastTime = 0;
+        this._requsetCountOneTimeAgo = 0;
+        this._responseCountOneTimeAgo = 0;
+        this._noResponseCount = 0;
+        this._QPS = 0;
+        this.clearCollectTimer();
+        this._collectTimer = this.startCollectTimer();
     };
     return Counter;
 }());
