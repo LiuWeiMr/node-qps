@@ -1,6 +1,6 @@
 import Module = require("module");
 
-import {reportQPS} from "./app"
+import {reportQPS} from "./report"
 
 interface nodule{
     [key: string]: any
@@ -133,15 +133,47 @@ warpListener = function(counter, listener) {
     newListener = function(request, response) {
         
         counter.addRequestCount(1);
+        
+        const url = request.originalUrl || request.url;
+        const method = request.method;
+
+        const resWrite = response.write;
+        const resEnd = response.end;
+
+        response.write = function(chunk: any, encoding: any, callback: any) {
+            if (url === "/QPS" && method === "GET") {
+
+                if (typeof chunk === 'function') {
+                    callback = chunk;
+                    chunk = null;
+                } else if (typeof encoding === 'function') {
+                    callback = encoding;
+                    encoding = null;
+                }
+                return resWrite.call(this, null, encoding, callback);
+            }
+            return resWrite.apply(this, arguments);
+        }
+
+        response.end = function(chunk: any, encoding: any, callback: any) {
+            if (url === "/QPS" && method === "GET") {
+                
+                if (typeof chunk === 'function') {
+                    callback = chunk;
+                    chunk = null;
+                } else if (typeof encoding === 'function') {
+                    callback = encoding;
+                    encoding = null;
+                }
+                return resEnd.call(this, reportQPS(counter), encoding, callback);
+            }
+            return resEnd.apply(this, arguments);
+        }
         response.once('finish', function onResponseFinish() {
             counter.addResponseCount(1);
         });
 
-        const url = request.originalUrl || request.url;
-        const method = request.method;
-        if (url === "/QPS" && method === "GET") {
-            reportQPS(counter, response);
-        }
+
 
         return listener.apply(this, arguments);
     }

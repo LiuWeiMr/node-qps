@@ -16,22 +16,19 @@ interface counter {
 }
 
 interface reportQPS {
-    (counter: counter, res: any): void
+    (counter: counter): void
 }
 let reportQPS: reportQPS;
 
-reportQPS = function (counter, res) {
-    res.write(`
-        requestCount: ${counter.requestCount}
-        responseCount: ${counter.responseCount}
-        requsetCountInLastTime: ${counter.requsetCountInLastTime}
-        responseCountInLastTime: ${counter.responseCountInLastTime}
-        noRespsnseCount: ${counter.noResponseCount}
-        QPS: ${counter.noResponseCount}
-        collectTime: ${counter.noResponseCount/1000}
-
-    `);
-    res.end();
+reportQPS = function (counter) {
+    return JSON.stringify({
+    requestCount: counter.requestCount,
+    responseCount: counter.responseCount,
+    requsetCountInLastTime: counter.requsetCountInLastTime,
+    responseCountInLastTime: counter.responseCountInLastTime,
+    noRespsnseCount: counter.noResponseCount,
+    QPS: counter.noResponseCount,
+    collectTime: counter.noResponseCount/1000});
 }
 
 export {reportQPS}

@@ -31,7 +31,7 @@ $ npm install --save node-qps
      * requestCount：接收到请求数
      * responseCount：响应请求数
      * requsetCountInLastTime：collectTime/1000秒内接收到请求数
-     * responseCountInLastTime：collectTime/1000响应请求数
+     * responseCountInLastTime：collectTime/1000秒内响应请求数
      * noRespsnseCount：待响应请求数
      * QPS：每秒处理请求数
      * collectTime：收集间隔，单位：秒

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Module = require("module");
-var app_1 = require("./app");
+var report_1 = require("./report");
 var wrapMethod;
 exports.wrapMethod = wrapMethod;
 exports.wrapMethod = wrapMethod = function (nodule, method, wrapper) {
@@ -63,14 +63,41 @@ warpListener = function (counter, listener) {
     var newListener;
     newListener = function (request, response) {
         counter.addRequestCount(1);
+        var url = request.originalUrl || request.url;
+        var method = request.method;
+        var resWrite = response.write;
+        var resEnd = response.end;
+        response.write = function (chunk, encoding, callback) {
+            if (url === "/QPS" && method === "GET") {
+                if (typeof chunk === 'function') {
+                    callback = chunk;
+                    chunk = null;
+                }
+                else if (typeof encoding === 'function') {
+                    callback = encoding;
+                    encoding = null;
+                }
+                return resWrite.call(this, null, encoding, callback);
+            }
+            return resWrite.apply(this, arguments);
+        };
+        response.end = function (chunk, encoding, callback) {
+            if (url === "/QPS" && method === "GET") {
+                if (typeof chunk === 'function') {
+                    callback = chunk;
+                    chunk = null;
+                }
+                else if (typeof encoding === 'function') {
+                    callback = encoding;
+                    encoding = null;
+                }
+                return resEnd.call(this, report_1.reportQPS(counter), encoding, callback);
+            }
+            return resEnd.apply(this, arguments);
+        };
         response.once('finish', function onResponseFinish() {
             counter.addResponseCount(1);
         });
-        var url = request.originalUrl || request.url;
-        var method = request.method;
-        if (url === "/QPS" && method === "GET") {
-            app_1.reportQPS(counter, response);
-        }
         return listener.apply(this, arguments);
     };
     return newListener;
