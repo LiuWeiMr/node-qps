@@ -9,7 +9,7 @@ exports.reportQPS = reportQPS = function (counter) {
         requsetCountInLastTime: counter.requsetCountInLastTime,
         responseCountInLastTime: counter.responseCountInLastTime,
         noRespsnseCount: counter.noResponseCount,
-        QPS: counter.noResponseCount,
-        collectTime: counter.noResponseCount / 1000
+        QPS: counter.QPS,
+        collectTime: counter.collectTime / 1000
     });
 };

@@ -19,12 +19,12 @@ $ npm install --save node-qps
 ```
 
 ## Test
- - Express V3: passed
+ - Express V3: testing
  - Express V4: passed
- - Koa V1: passed
- - Koa V2: passed
- - Egg V1: passed
- - Egg V2: passed
+ - Koa V1: testing
+ - Koa V2: testing
+ - Egg V1: testing
+ - Egg V2: testing
 
 ## Comment
  + 返回指标注释：
