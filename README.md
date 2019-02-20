@@ -2,25 +2,25 @@
 
 [![npm version](https://img.shields.io/badge/npm-1.1.0-red.svg)](https://www.npmjs.com/package/node-qps)
 
-Node-QPS是一个测试Web应用QPS（web应用每秒处理请求数量）的工具
+Node-RPS是一个统计Web应用RPS（node web server每秒响应请求数量）的工具
 
 ## Installation
 
 ```bash
-$ npm install --save node-qps
+$ npm install --save node-rps
 ```
 
 ## Usage
 
 ```bash
- Setp1: npm install --save node-qps
- Setp2: 将“require("node-qps")”写到项目主文件第一行（如果首行有"use strict"则写到"use strict"下一行）
- Setp3: 启动应用后通过URL获取应用QPS：http://项目域名/QPS (如：GET http://localhost:3000/QPS)
+ Setp1: npm install --save node-rps
+ Setp2: 将“require("node-rps")”写到项目主文件第一行（如果首行有"use strict"则写到"use strict"下一行）
+ Setp3: 启动应用后通过控制台查看
 ```
 
 ## Test
  - Express V3: testing
- - Express V4: passed
+ - Express V4: OK
  - Koa V1: testing
  - Koa V2: testing
  - Egg V1: testing
@@ -33,5 +33,5 @@ $ npm install --save node-qps
      * requsetCountInLastTime：collectTime/1000秒内接收到请求数
      * responseCountInLastTime：collectTime/1000秒内响应请求数
      * noRespsnseCount：待响应请求数
-     * QPS：每秒处理请求数
+     * RPS：每秒响应请求数
      * collectTime：收集间隔，单位：秒
