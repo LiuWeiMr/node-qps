@@ -1,4 +1,4 @@
-# Node-QPS
+# Node-RPS
 
 [![npm version](https://img.shields.io/badge/npm-1.1.0-red.svg)](https://www.npmjs.com/package/node-qps)
 
