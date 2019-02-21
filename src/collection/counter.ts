@@ -6,7 +6,7 @@ export class Counter {
     private _responseCountInLastTime: number;
     private _requsetCountOneTimeAgo: number;
     private _responseCountOneTimeAgo: number;
-    private _QPS: number;
+    private _RPS: number;
     private _collectTime: number;
     private _noResponseCount: number;
     private _collectTimer: any;
@@ -20,7 +20,7 @@ export class Counter {
         this._responseCountOneTimeAgo = 0;
         this._noResponseCount = 0;
         this._collectTime = collecTime;    // 默认一分钟
-        this._QPS = 0;
+        this._RPS = 0;
         this._collectTimer = this.startCollectTimer();
     }
 
@@ -44,8 +44,8 @@ export class Counter {
         return this._noResponseCount;
     }
 
-    public get QPS(): number {
-        return this._QPS;
+    public get RPS(): number {
+        return this._RPS;
     }
 
     public get responseCountInLastTime(): number {
@@ -70,8 +70,8 @@ export class Counter {
     }
 
     public collect(): void {
-        let QPS = (this._responseCount - this._responseCountInLastTime) / (this._collectTime / 1000);
-        this._QPS = Math.floor(QPS) / 100
+        let RPS = (this._responseCount - this._responseCountInLastTime) / (this._collectTime / 1000);
+        this._RPS = Math.floor(RPS) / 100
         this._responseCountInLastTime = this._responseCount;
         this._requsetCountInLastTime = this._requestCount;
         this._noResponseCount = this._requestCount - this._responseCount;
@@ -85,7 +85,7 @@ export class Counter {
         this._requsetCountOneTimeAgo = 0;
         this._responseCountOneTimeAgo = 0;
         this._noResponseCount = 0;
-        this._QPS = 0;
+        this._RPS = 0;
         this.clearCollectTimer();
         this._collectTimer = this.startCollectTimer();
     }

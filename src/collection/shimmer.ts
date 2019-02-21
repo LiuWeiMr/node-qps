@@ -1,6 +1,6 @@
 import Module = require("module");
 
-import {reportQPS} from "./report"
+import {reportRPS} from "./report"
 
 interface nodule{
     [key: string]: any
@@ -16,7 +16,7 @@ interface counter {
     responseCount: number,
     addResponseCount: (addCount: number) => void,
     noResponseCount: number,
-    QPS: number,
+    RPS: number,
     responseCountInLastTime: number,
     requsetCountInLastTime: number,
     collectTime: number,
@@ -141,7 +141,7 @@ warpListener = function(counter, listener) {
         const resEnd = response.end;
 
         response.write = function(chunk: any, encoding: any, callback: any) {
-            if (url === "/QPS" && method === "GET") {
+            if (url === "/RPS" && method === "GET") {
 
                 if (typeof chunk === 'function') {
                     callback = chunk;
@@ -156,7 +156,7 @@ warpListener = function(counter, listener) {
         }
 
         response.end = function(chunk: any, encoding: any, callback: any) {
-            if (url === "/QPS" && method === "GET") {
+            if (url === "/RPS" && method === "GET") {
                 
                 if (typeof chunk === 'function') {
                     callback = chunk;
@@ -165,7 +165,7 @@ warpListener = function(counter, listener) {
                     callback = encoding;
                     encoding = null;
                 }
-                return resEnd.call(this, reportQPS(counter), encoding, callback);
+                return resEnd.call(this, reportRPS(counter), encoding, callback);
             }
             return resEnd.apply(this, arguments);
         }

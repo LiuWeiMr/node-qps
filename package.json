@@ -1,13 +1,14 @@
 {
-  "name": "node-qps",
-  "version": "2.0.0",
-  "description": "Test Node Application QPS",
+  "name": "node-rps",
+  "version": "0.0.4",
+  "description": "Test Node Application RPS(Response Per Second)",
   "main": "./dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --outDir ./dist"
   },
   "keywords": [
-    "qps"
+    "rps"
   ],
   "author": "LiuWeiMr",
   "license": "ISC",

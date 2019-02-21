@@ -68,7 +68,7 @@ warpListener = function (counter, listener) {
         var resWrite = response.write;
         var resEnd = response.end;
         response.write = function (chunk, encoding, callback) {
-            if (url === "/QPS" && method === "GET") {
+            if (url === "/RPS" && method === "GET") {
                 if (typeof chunk === 'function') {
                     callback = chunk;
                     chunk = null;
@@ -82,7 +82,7 @@ warpListener = function (counter, listener) {
             return resWrite.apply(this, arguments);
         };
         response.end = function (chunk, encoding, callback) {
-            if (url === "/QPS" && method === "GET") {
+            if (url === "/RPS" && method === "GET") {
                 if (typeof chunk === 'function') {
                     callback = chunk;
                     chunk = null;
@@ -91,7 +91,7 @@ warpListener = function (counter, listener) {
                     callback = encoding;
                     encoding = null;
                 }
-                return resEnd.call(this, report_1.reportQPS(counter), encoding, callback);
+                return resEnd.call(this, report_1.reportRPS(counter), encoding, callback);
             }
             return resEnd.apply(this, arguments);
         };

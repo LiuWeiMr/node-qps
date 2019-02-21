@@ -5,7 +5,7 @@ interface counter {
     responseCount: number,
     addResponseCount: (addCount: number) => void,
     noResponseCount: number,
-    QPS: number,
+    RPS: number,
     responseCountInLastTime: number,
     requsetCountInLastTime: number,
     collectTime: number,
@@ -15,20 +15,20 @@ interface counter {
     clearMetric: () => void,
 }
 
-interface reportQPS {
+interface reportRPS {
     (counter: counter): void
 }
-let reportQPS: reportQPS;
+let reportRPS: reportRPS;
 
-reportQPS = function (counter) {
+reportRPS = function (counter) {
     return JSON.stringify({
     requestCount: counter.requestCount,
     responseCount: counter.responseCount,
     requsetCountInLastTime: counter.requsetCountInLastTime,
     responseCountInLastTime: counter.responseCountInLastTime,
     noRespsnseCount: counter.noResponseCount,
-    QPS: counter.QPS,
+    RPS: counter.RPS,
     collectTime: counter.collectTime/1000});
 }
 
-export {reportQPS}
+export {reportRPS}

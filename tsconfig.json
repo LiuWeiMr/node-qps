@@ -17,5 +17,6 @@
             "node"
           ]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist"
 }

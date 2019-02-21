@@ -11,7 +11,7 @@ var Counter = /** @class */ (function () {
         this._responseCountOneTimeAgo = 0;
         this._noResponseCount = 0;
         this._collectTime = collecTime; // 默认一分钟
-        this._QPS = 0;
+        this._RPS = 0;
         this._collectTimer = this.startCollectTimer();
     }
     Object.defineProperty(Counter.prototype, "requestCount", {
@@ -41,9 +41,9 @@ var Counter = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Counter.prototype, "QPS", {
+    Object.defineProperty(Counter.prototype, "RPS", {
         get: function () {
-            return this._QPS;
+            return this._RPS;
         },
         enumerable: true,
         configurable: true
@@ -76,8 +76,8 @@ var Counter = /** @class */ (function () {
         clearInterval(this._collectTimer);
     };
     Counter.prototype.collect = function () {
-        var QPS = (this._responseCount - this._responseCountInLastTime) / (this._collectTime / 1000);
-        this._QPS = Math.floor(QPS) / 100;
+        var RPS = (this._responseCount - this._responseCountInLastTime) / (this._collectTime / 1000);
+        this._RPS = Math.floor(RPS) / 100;
         this._responseCountInLastTime = this._responseCount;
         this._requsetCountInLastTime = this._requestCount;
         this._noResponseCount = this._requestCount - this._responseCount;
@@ -90,7 +90,7 @@ var Counter = /** @class */ (function () {
         this._requsetCountOneTimeAgo = 0;
         this._responseCountOneTimeAgo = 0;
         this._noResponseCount = 0;
-        this._QPS = 0;
+        this._RPS = 0;
         this.clearCollectTimer();
         this._collectTimer = this.startCollectTimer();
     };
