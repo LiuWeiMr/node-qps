@@ -23,8 +23,6 @@ $ npm install --save node-rps
  - Express V4: OK
  - Koa V1: OK
  - Koa V2: OK
- - Egg V1: OK
- - Egg V2: OK
 
 ## Comment
  + 返回指标注释：
